@@ -33,9 +33,9 @@ COPY index.* /www/
 # "configType" value can be "json" or "text" depending on your config format
 RUN echo '{ \
   "httpPort": 9000, \
-  "configPath": "elasticsearch.yml", \
+  "configPath": "/usr/share/elasticsearch/config/elasticsearch.yml", \
   "configType": "text", \
-  "dataPath": "/", \
+  "dataPath": "/www", \
   "technicalApplication": true \
 }' > /etc/ezmaster.json
 
