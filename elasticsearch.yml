@@ -1,0 +1,16 @@
+cluster.name: "ezmaster-cluster"
+network.host: 0.0.0.0
+# network.publish_host: "${PUBLISH_IP}"
+
+# discovery.zen.minimum_master_nodes: 0
+bootstrap.memory_lock: true
+# transport.tcp.port: 9300
+# http.port: 9200
+
+http.cors.enabled: true
+http.cors.allow-origin: "*"
+http.max_content_length: 1000mb
+indices.recovery.max_bytes_per_sec: 100mb
+indices.query.bool.max_clause_count: 4096
+
+# indices.query.bool.max_clause_count: 10240
