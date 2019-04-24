@@ -11,37 +11,22 @@ COPY --chown=elasticsearch:elasticsearch elasticsearch.yml /usr/share/elasticsea
 ARG ES_JAVA_OPTS
 RUN bin/elasticsearch-plugin install analysis-icu
 
-# Install cerebro
-# WORKDIR /usr/share
-# ARG http_proxy
-# ARG https_proxy
-# RUN wget https://github.com/lmenezes/cerebro/releases/download/v0.8.2/cerebro-0.8.2.tgz && \
-#     tar xzf cerebro-0.8.2.tgz && \
-#     ln -s cerebro-0.8.2 cerebro && \
-#     rm -f cerebro-0.8.2.tgz && \
-#     cd cerebro-0.8.2
-
-
-# basic http server stuff
-RUN mkdir /www
-COPY index.* /www/
-
 # Then create the /etc/ezmaster.json in your docker image.
 # It will tell to ezmaster where is your web server (ex: port 3000),
 # where is your JSON configuration file,
 # and where is your data folder
 # "configType" value can be "json" or "text" depending on your config format
 RUN echo '{ \
-  "httpPort": 9000, \
+  "httpPort": 9200, \
   "configPath": "/usr/share/elasticsearch/config/elasticsearch.yml", \
   "configType": "text", \
-  "dataPath": "/www", \
+  "dataPath": "/usr/share/elasticsearch/data", \
   "technicalApplication": true \
 }' > /etc/ezmaster.json
 
-EXPOSE 9200 9000
+EXPOSE 9200
 
 WORKDIR /
 COPY --chown=elasticsearch:elasticsearch docker-entrypoint.overload.sh /usr/local/bin/
 
-ENTRYPOINT [ "docker-entrypoint.overload.sh" ]
+ENTRYPOINT [ "/usr/local/bin/docker-entrypoint.overload.sh" ]
