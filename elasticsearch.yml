@@ -13,5 +13,9 @@ http.cors.allow-origin: "*"
 http.max_content_length: 1000mb
 indices.recovery.max_bytes_per_sec: 100mb
 indices.query.bool.max_clause_count: 4096
-
 # indices.query.bool.max_clause_count: 10240
+
+xpack.security.enabled: false
+xpack.graph.enabled: false
+xpack.watcher.enabled: false
+xpack.monitoring.enabled: true

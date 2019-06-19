@@ -1,10 +1,11 @@
-FROM docker.elastic.co/elasticsearch/elasticsearch:6.7.0
+FROM docker.elastic.co/elasticsearch/elasticsearch:5.5.3
 
-COPY --chown=elasticsearch:elasticsearch elasticsearch.yml /usr/share/elasticsearch/config/
+COPY elasticsearch.yml /usr/share/elasticsearch/config/
+COPY docker-entrypoint.overload.sh /usr/share/elasticsearch/
 
 # Install analysis-icu plugin (usefull for Conditor app)
-ARG ES_JAVA_OPTS
-RUN bin/elasticsearch-plugin install analysis-icu
+
+USER root
 
 # Then create the /etc/ezmaster.json in your docker image.
 # It will tell to ezmaster where is your web server (ex: port 3000),
@@ -19,9 +20,13 @@ RUN echo '{ \
   "technicalApplication": true \
 }' > /etc/ezmaster.json
 
+RUN chmod -R 1777 /tmp
+RUN usermod -a -G root elasticsearch
+
+# USER elasticsearch 
+
 EXPOSE 9200
 
-WORKDIR /
-COPY --chown=elasticsearch:elasticsearch docker-entrypoint.overload.sh /usr/local/bin/
+WORKDIR /usr/share/elasticsearch
 
-ENTRYPOINT [ "/usr/local/bin/docker-entrypoint.overload.sh" ]
+ENTRYPOINT [ "./docker-entrypoint.overload.sh" ]
