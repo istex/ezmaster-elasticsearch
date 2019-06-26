@@ -1,4 +1,4 @@
-FROM docker.elastic.co/elasticsearch/elasticsearch:5.5.3
+FROM docker.elastic.co/elasticsearch/elasticsearch:5.3.3
 
 COPY elasticsearch.yml /usr/share/elasticsearch/config/
 COPY docker-entrypoint.overload.sh /usr/share/elasticsearch/
@@ -21,9 +21,8 @@ RUN echo '{ \
 }' > /etc/ezmaster.json
 
 RUN chmod -R 1777 /tmp
-RUN usermod -a -G root elasticsearch
 
-# USER elasticsearch 
+# RUN usermod -a -G root elasticsearch
 
 EXPOSE 9200
 
