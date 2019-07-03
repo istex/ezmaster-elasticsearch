@@ -3,7 +3,7 @@ network.host: 0.0.0.0
 # network.publish_host: "${PUBLISH_IP}"
 
 # discovery.zen.minimum_master_nodes: 0
-bootstrap.memory_lock: true
+# bootstrap.memory_lock: true
 # transport.tcp.port: 9300
 # http.port: 9200
 
