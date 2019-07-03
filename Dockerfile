@@ -22,8 +22,6 @@ RUN echo '{ \
 
 RUN chmod -R 1777 /tmp
 
-# RUN usermod -a -G root elasticsearch
-
 EXPOSE 9200
 
 WORKDIR /usr/share/elasticsearch
